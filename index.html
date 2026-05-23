@@ -1634,13 +1634,10 @@ body.modal-open { overflow: hidden; }
   const toggle = document.getElementById('themeToggle');
   if (!toggle) return;
 
-  // Detectar preferência inicial: localStorage > sistema > default dark
+  // Default: dark. Só ativa light se o usuário escolheu explicitamente
   let saved = null;
   try { saved = localStorage.getItem(STORAGE_KEY); } catch(e) {}
-  const systemLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-  const initialLight = saved === 'light' || (saved === null && systemLight);
-
-  if (initialLight) document.body.classList.add('light');
+  if (saved === 'light') document.body.classList.add('light');
 
   toggle.addEventListener('click', () => {
     document.body.classList.toggle('light');
